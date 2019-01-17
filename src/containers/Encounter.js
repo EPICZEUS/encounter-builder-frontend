@@ -1,6 +1,6 @@
 import { Component } from 'react';
 
-export default class PlayerList extends Component {
+export default class Encounter extends Component {
 	render() {
 		
 	}
