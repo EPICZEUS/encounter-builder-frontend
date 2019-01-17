@@ -38,8 +38,11 @@
         "key-spacing": "warn",
         "nonblock-statement-body-position": "warn",
         "object-curly-newline": [ "error", {
-            "multiline": true,
-            "minProperties": 3,
+            "ObjectExpression": {
+                "multiline": true,
+                "minProperties": 3
+            },
+            "ObjectPattern": "never",
             "ImportDeclaration": "never"
         }],
         "object-curly-spacing": [ "error", "always", {
