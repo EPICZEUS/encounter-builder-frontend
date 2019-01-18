@@ -1,6 +1,7 @@
 import React from 'react'
 import Creature from '../components/Creature'
-import { Card } from 'semantic-ui-react'
+import { Card, Segment } from 'semantic-ui-react'
+import InfoBox from './InfoBox'
 
 class CreatureList extends React.Component {
 
@@ -17,13 +18,27 @@ class CreatureList extends React.Component {
     })
   }
 
+  selectCreature = (id) => {
+    this.setState({ selected: id })
+  }
+
   render () {
     return (
-      <Card.Group itemsPerRow={5}>
-        {this.state.creatures.map(creature => {
-          return <Creature key={creature.id} {...creature} />
-        })}
-      </Card.Group>
+      <div>
+        <Segment style={{ overflow: 'auto', maxHeight: 700 }}>
+          <Card.Group itemsPerRow={5}>
+            {this.state.creatures.map(creature => {
+              return <Creature key={creature.id} {...creature} selectCreature={this.selectCreature}/>
+            })}
+          </Card.Group>
+        </Segment>
+        <Segment>
+          {this.state.selected
+            ? <InfoBox creature={this.state.creatures.find(c => c.id === this.state.selected)} />
+          : <InfoBox creature={null}/>}
+
+        </Segment>
+      </div>
     )
   }
 }

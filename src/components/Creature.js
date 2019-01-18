@@ -4,7 +4,7 @@ import { Card, Icon } from 'semantic-ui-react'
 
 const Creature = (props) => {
   return (
-    <Card link>
+    <Card link onClick={() => props.selectCreature(props.id)}>
       <Card.Content>
         <Card.Header>{props.name}</Card.Header>
         <Card.Meta>{props.creature_type}</Card.Meta>
