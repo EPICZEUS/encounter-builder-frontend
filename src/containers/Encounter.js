@@ -6,7 +6,8 @@ export default class Encounter extends Component {
 	render() {
 		return (
 			<CreatureList />
-			<PlayerList players={this.props.players} />
 		);
 	}
 }
+
+// <PlayerList players={this.props.players} />

@@ -20,7 +20,7 @@ class App extends Component {
 	}
 
 	async componentDidMount() {
-		const encounters = await fetch("http://localhost:3000/api/v1/encounters").then(r => r.json());
+		const encounters = await fetch("http://localhost:4000/api/v1/encounters").then(r => r.json());
 		const { players = [], creatures = []} = encounters[0] || {};
 
 		const options = encounters.map(encounter => ({
