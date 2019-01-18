@@ -26,7 +26,7 @@ class CreatureList extends React.Component {
     return (
       <div>
         <Segment style={{ overflow: 'auto', maxHeight: 700 }}>
-          <Card.Group itemsPerRow={5}>
+          <Card.Group itemsPerRow={1}>
             {this.state.creatures.map(creature => {
               return <Creature key={creature.id} {...creature} selectCreature={this.selectCreature}/>
             })}
