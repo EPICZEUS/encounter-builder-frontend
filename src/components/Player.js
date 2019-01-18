@@ -12,17 +12,11 @@ export default class Player extends Component {
 					<Card.Meta>
 						<span className="class">{this.props.player_class}</span>
 					</Card.Meta>
-					<Card.Description>
-						<div>
-							<Icon name="arrow alternate circle right" /> <span>{this.props.speed}</span>
-						</div>
-						<div>
-							<Icon name="heart" /> <span>{this.props.hp}</span>
-						</div>
-						<div>
-							<Icon name="shield" /> <span>{this.props.ac}</span>
-						</div>
-					</Card.Description>
+				</Card.Content>
+				<Card.Content extra>
+					<Icon name="shield" /><span>{this.props.ac}</span>
+					{" "}<Icon name="heartbeat" /><span>{this.props.hp}</span><br />
+					<Icon name="arrow alternate circle right" /><span>{this.props.speed}</span>
 				</Card.Content>
 			</Card>
 		);
