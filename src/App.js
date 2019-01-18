@@ -11,6 +11,7 @@ class App extends Component {
 		encounters: [],
 		players: [],
 		creatures: [],
+		options: [],
 		selectedEncounter: null,
 		selected: {
 			type: null,
@@ -19,29 +20,35 @@ class App extends Component {
 	}
 
 	async componentDidMount() {
-		const encounters = await fetch("http://localhost:3000/api/v1/encounters");
-		const { players, creatures } = encounters;
+		const encounters = await fetch("http://localhost:3000/api/v1/encounters").then(r => r.json());
+		const { players = [], creatures = []} = encounters[0] || {};
+
+		const options = encounters.map(encounter => ({
+			key: encounter.id,
+			value: encounter.id,
+			text: encounter.name
+		}));
 
 		this.setState({
+			selectedEncounter: encounters[0] ? encounters[0].id : null,
 			encounters,
 			players,
-			creatures
+			creatures,
+			options
 		});
 	}
 
 	render() {
 		return (
-			<Fragment>
-				<Router>
-					<Fragment>
-						<nav>
-							<Link to="/">Encounter</Link>
-							<Link to="/create">Create Character</Link>
-						</nav>
-						<Route exact path="/" render={() => <Encounter players={this.state.players} creatures={this.state.creatures} />} />
-					</Fragment>
-				</Router>
-			</Fragment>
+			<Router>
+				<Fragment>
+					<nav>
+						<Link to="/">Encounter</Link>
+						<Link to="/create">Create Character</Link>
+					</nav>
+					<Route exact path="/" render={() => <Encounter players={this.state.players} creatures={this.state.creatures} />} />
+				</Fragment>
+			</Router>
 		);
 	}
 }
