@@ -9,8 +9,10 @@ import { Card } from 'semantic-ui-react'
 
 class App extends Component {
 	state = {
+		encounters: [],
 		players: [],
 		creatures: [],
+		selectedEncounter: null,
 		selected: {
 			type: null,
 			id: null
@@ -18,10 +20,14 @@ class App extends Component {
 	}
 
 	async componentDidMount() {
-		const players = await fetch("http://localhost:4000/api/v1/players").then(r => r.json());
-		const creatures = await fetch("http://localhost:4000/api/v1/creatures").then(r => r.json());
+		const encounters = await fetch("http://localhost:3000/api/v1/encounters");
+		const { players, creatures } = encounters;
 
-		this.setState({ players, creatures });
+		this.setState({
+			encounters,
+			players,
+			creatures
+		});
 	}
 
 	render() {
