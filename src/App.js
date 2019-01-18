@@ -21,7 +21,8 @@ class App extends Component {
 
 	async componentDidMount() {
 		const encounters = await fetch("http://localhost:4000/api/v1/encounters").then(r => r.json());
-		const { players = [], creatures = []} = encounters[0] || {};
+		// const { players = [], creatures = []} = encounters[0] || {};
+		const players = await fetch("http://localhost:4000/api/v1/players").then(r => r.json());
 
 		const options = encounters.map(encounter => ({
 			key: encounter.id,
@@ -33,7 +34,7 @@ class App extends Component {
 			selectedEncounter: encounters[0] ? encounters[0].id : null,
 			encounters,
 			players,
-			creatures,
+			// creatures,
 			options
 		});
 	}

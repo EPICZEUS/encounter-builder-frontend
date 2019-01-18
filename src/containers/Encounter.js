@@ -9,7 +9,7 @@ export default class Encounter extends Component {
 			<Grid celled>
 				<Grid.Row>
 					<Grid.Column width={3}>
-						<h1>players go here</h1>
+						<PlayerList players={this.props.players} />
 					</Grid.Column>
 					<Grid.Column width={10}>
 						<h1>map or some shit here</h1>

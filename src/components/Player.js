@@ -6,7 +6,7 @@ import { Card, Icon } from 'semantic-ui-react';
 export default class Player extends Component {
 	render() {
 		return (
-			<Card>
+			<Card link>
 				<Card.Content>
 					<Card.Header>{this.props.name}</Card.Header>
 					<Card.Meta>
