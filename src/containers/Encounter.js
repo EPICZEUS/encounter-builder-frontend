@@ -1,9 +1,10 @@
 import React, { Component } from 'react';
+import CreatureList from '../containers/CreatureList'
 
 export default class Encounter extends Component {
 	render() {
 		return (
-			<h1>hi</h1>
+			<CreatureList />
 		)
 	}
 }

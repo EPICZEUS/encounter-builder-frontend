@@ -1,5 +1,4 @@
 import React from 'react'
-import PropTypes from 'prop-types'
 import { Card, Icon } from 'semantic-ui-react'
 
 const Creature = (props) => {
@@ -12,7 +11,7 @@ const Creature = (props) => {
       <Card.Content extra>
         <a>
           <Icon name='shield' />{props.ac}
-          <Icon name='heartbeat' />{props.hp}<br />
+          {" "}<Icon name='heartbeat' />{props.hp}<br />
           <Icon name='arrow alternate circle right' />{props.speed}
         </a>
       </Card.Content>

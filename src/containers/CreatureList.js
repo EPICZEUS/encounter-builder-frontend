@@ -10,7 +10,7 @@ class CreatureList extends React.Component {
   }
 
   componentDidMount() {
-    fetch('http://localhost:4000/api/v1/creatures')
+    fetch('http://localhost:3000/api/v1/creatures')
     .then(res => res.json())
     .then(creatures => {
       this.setState({ creatures })
