@@ -19,14 +19,19 @@ export default class PlayerList extends Component {
     })
   }
 
+	selectPlayer = (id) => {
+		this.setState({ selected: id })
+	}
+
 	render() {
 		return (
 			<div>
-				<Segment>
+				<Segment style={{ overflow: 'auto', maxHeight: 700 }}>
 					<Card.Group itemsPerRow={1}>
 						{this.state.players.map(player => (
 							<Player
 								key={player.id}
+								selectPlayer={this.selectPlayer}
 								{...player}
 							/>)
 						)}
@@ -34,7 +39,7 @@ export default class PlayerList extends Component {
 				</Segment>
 				<Segment>
           {this.state.selected
-            ? <InfoBox creature={this.state.players.find(c => c.id === this.state.selected)} />
+            ? <InfoBox creature={this.state.players.find(c => c.id === this.state.selected)} addToEncounter={this.props.addToEncounter} />
           : <InfoBox creature={null}/>}
 				</Segment>
 			</div>

@@ -11,10 +11,13 @@ export default class Encounter extends Component {
 			<Grid celled>
 				<Grid.Row>
 					<Grid.Column width={3}>
-						<PlayerList />
+						<PlayerList addToEncounter={this.props.addToEncounter}/>
 					</Grid.Column>
 					<Grid.Column width={10}>
-						<CurrentEncounter creatures={this.props.creatures}/>
+						<CurrentEncounter
+							creatures={this.props.creatures}
+							players={this.props.players}
+						/>
 					</Grid.Column>
 					<Grid.Column width={3}>
 						<CreatureList addToEncounter={this.props.addToEncounter}/>
