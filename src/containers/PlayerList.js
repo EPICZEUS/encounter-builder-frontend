@@ -19,6 +19,10 @@ export default class PlayerList extends Component {
     })
   }
 
+  selectPlayer = selected => {
+  	this.setState({ selected });
+  }
+
 	render() {
 		return (
 			<div>
@@ -27,6 +31,7 @@ export default class PlayerList extends Component {
 						{this.state.players.map(player => (
 							<Player
 								key={player.id}
+								selectPlayer={this.selectPlayer}
 								{...player}
 							/>)
 						)}

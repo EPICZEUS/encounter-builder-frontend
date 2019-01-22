@@ -18,8 +18,8 @@ class CreatureList extends React.Component {
     })
   }
 
-  selectCreature = (id) => {
-    this.setState({ selected: id })
+  selectCreature = selected => {
+    this.setState({ selected })
   }
 
   render () {
