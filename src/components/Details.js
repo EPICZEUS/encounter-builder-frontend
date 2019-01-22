@@ -1,5 +1,5 @@
 import React from 'react'
-import { Card, Icon } from 'semantic-ui-react'
+import { Card, Icon, Button } from 'semantic-ui-react'
 
 const Details = (props) => {
   return (
@@ -16,7 +16,8 @@ const Details = (props) => {
           <Icon name='shield' />{props.creature.ac}
           {" "}<Icon name='heartbeat' />{props.creature.hp}<br />
         <Icon name='arrow alternate circle right' />{props.creature.speed}
-        </a>
+        </a><br />
+      <Button onClick={() => props.addToEncounter(props.creature)} primary>Add to encounter</Button>
       </Card.Content>
     </Card>
   )

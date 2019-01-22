@@ -34,7 +34,7 @@ class CreatureList extends React.Component {
         </Segment>
         <Segment>
           {this.state.selected
-            ? <InfoBox creature={this.state.creatures.find(c => c.id === this.state.selected)} />
+            ? <InfoBox creature={this.state.creatures.find(c => c.id === this.state.selected)} addToEncounter={this.props.addToEncounter} />
           : <InfoBox creature={null}/>}
 
         </Segment>
