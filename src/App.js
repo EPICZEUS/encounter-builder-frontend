@@ -12,17 +12,17 @@ class App extends Component {
 		encounters: [],
 		players: [],
 		creatures: [],
+		addedPlayers: [],
+		addedCreatures: [],
 		options: [],
-		selectedEncounter: null,
-		selected: {
-			type: null,
-			id: null
-		}
+		selected: null
 	}
 
 	async componentDidMount() {
 		const encounters = await fetch("http://localhost:3000/api/v1/encounters").then(r => r.json());
-		const { players = [], creatures = []} = encounters[0] || {};
+		const players = await fetch("http://localhost:3000/api/v1/players").then(r => r.json());
+		const creatures = await fetch("http://localhost:3000/api/v1/creatures").then(r => r.json());
+		// const { players = [], creatures = []} = encounters[0] || {};
 
 		const options = encounters.map(encounter => ({
 			key: encounter.id,
@@ -31,7 +31,7 @@ class App extends Component {
 		}));
 
 		this.setState({
-			selectedEncounter: encounters[0] ? encounters[0].id : null,
+			selected: encounters[0] ? encounters[0].id : null,
 			encounters,
 			players,
 			creatures,
@@ -40,7 +40,7 @@ class App extends Component {
 	}
 
 	addToEncounter = combatant => {
-		const prop = combatant.player_class ? "players" : "creatures";
+		const prop = combatant.player_class ? "addedPlayers" : "addedCreatures";
 
 		this.setState({ [prop]: [ ...this.state[prop], combatant ]});
 	}
@@ -53,7 +53,7 @@ class App extends Component {
 						<Link to="/">Encounter</Link>
 						<Link to="/create">Create Character</Link>
 					</nav>
-					<Route exact path="/" render={() => <Encounter players={this.state.players} creatures={this.state.creatures} addToEncounter={this.addToEncounter}/>} />
+					<Route exact path="/" render={() => <Encounter players={this.state.players} creatures={this.state.creatures} encounters={this.state.options} addedPlayers={this.state.addedPlayers} addedCreatures={this.state.addedCreatures} addToEncounter={this.addToEncounter}/>} />
 					<Route path="/create" render={() => <NewPlayer />} />
 				</Fragment>
 			</Router>

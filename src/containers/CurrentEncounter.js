@@ -3,7 +3,7 @@ import React from "react";
 import PropTypes from "prop-types";
 import Creature from "../components/Creature";
 import Player from "../components/Player";
-import { Segment, Form, Card, Grid } from "semantic-ui-react";
+import { Segment, Form, Card, Grid, Header, Dropdown, Menu } from "semantic-ui-react";
 /* eslint-disable no-unused-vars */
 
 class CurrentEncounter extends React.Component {
@@ -13,8 +13,8 @@ class CurrentEncounter extends React.Component {
 		this.state = {
 			name: '',
 			description: '',
-			players: props.players,
-			creatures: props.creatures
+			player_ids: props.players.map(player => player.id),
+			creature_ids: props.creatures.map(creature => creature.id)
 		};
 	}
 
@@ -33,13 +33,21 @@ class CurrentEncounter extends React.Component {
 				"Content-Type": "application/json",
 				"Accept": "application/json"
 			},
-			body: JSON.stringify({})
+			body: JSON.stringify(this.state)
 		});
 	}
 
 	render () {
 		return (
 			<div>
+				<Segment>
+					<Menu vertical>
+						<Dropdown item
+							text="Saved Encounters"
+							options={this.props.encounters}
+						/>
+					</Menu>
+				</Segment>
 				<Segment>
 					<Form onSubmit={this.handleSubmit}>
 						<Form.Input
@@ -63,11 +71,17 @@ class CurrentEncounter extends React.Component {
 					<Grid columns={2} divided>
 						<Grid.Row>
 							<Grid.Column>
+								<Header as="h3" dividing>
+                  Players
+								</Header>
 								<Card.Group itemsPerRow={1}>
 									{this.props.players.map(player => <Player key={player.id} {...player} />)}
 								</Card.Group>
 							</Grid.Column>
 							<Grid.Column>
+								<Header as="h3" dividing>
+                  Creatures
+								</Header>
 								<Card.Group itemsPerRow={1}>
 									{this.props.creatures.map(creature => <Creature key={creature.id} {...creature} />)}
 								</Card.Group>

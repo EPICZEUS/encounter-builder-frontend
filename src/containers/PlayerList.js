@@ -11,11 +11,11 @@ export default class PlayerList extends Component {
 		selected: null
 	}
 
-	componentDidMount() {
-		fetch('http://localhost:3000/api/v1/players')
-			.then(res => res.json())
-			.then(players => this.setState({ players }));
-	}
+	// componentDidMount() {
+	// 	fetch('http://localhost:3000/api/v1/players')
+	// 		.then(res => res.json())
+	// 		.then(players => this.setState({ players }));
+	// }
 
 	selectPlayer = selected => {
 		this.setState({ selected });
@@ -26,7 +26,7 @@ export default class PlayerList extends Component {
 			<div>
 				<Segment style={{ overflow: 'auto', maxHeight: 700 }}>
 					<Card.Group itemsPerRow={1}>
-						{this.state.players.map(player => (
+						{this.props.players.map(player => (
 							<Player
 								key={player.id}
 								selectPlayer={this.selectPlayer}
@@ -37,7 +37,7 @@ export default class PlayerList extends Component {
 				</Segment>
 				<Segment>
 					{this.state.selected
-						? <InfoBox creature={this.state.players.find(c => c.id === this.state.selected)} addToEncounter={this.props.addToEncounter} />
+						? <InfoBox creature={this.props.players.find(c => c.id === this.state.selected)} addToEncounter={this.props.addToEncounter} />
 						: <InfoBox creature={null}/>}
 				</Segment>
 			</div>
