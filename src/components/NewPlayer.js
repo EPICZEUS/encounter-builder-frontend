@@ -28,7 +28,7 @@ class NewPlayer extends React.Component {
   }
 
   handleSubmit = () => {
-    fetch('http://localhost:4000/api/v1/players', {
+    fetch('http://localhost:3000/api/v1/players', {
       method: 'POST',
       headers: {
         'Content-Type' : 'application/json',
