@@ -7,15 +7,15 @@ import InfoBox from './InfoBox';
 
 export default class PlayerList extends Component {
   state = {
-    creatures: [],
+    players: [],
     selected: null
   }
 
   componentDidMount() {
-    fetch('http://localhost:3000/api/v1/creatures')
+    fetch('http://localhost:3000/api/v1/players')
     .then(res => res.json())
-    .then(creatures => {
-      this.setState({ creatures })
+    .then(players => {
+      this.setState({ players })
     })
   }
 
@@ -23,8 +23,8 @@ export default class PlayerList extends Component {
 		return (
 			<div>
 				<Segment>
-					<Card.Group itemsPerRow={2}>
-						{this.props.players.map(player => (
+					<Card.Group itemsPerRow={1}>
+						{this.state.players.map(player => (
 							<Player
 								key={player.id}
 								{...player}
@@ -34,7 +34,7 @@ export default class PlayerList extends Component {
 				</Segment>
 				<Segment>
           {this.state.selected
-            ? <InfoBox creature={this.state.creatures.find(c => c.id === this.state.selected)} />
+            ? <InfoBox creature={this.state.players.find(c => c.id === this.state.selected)} />
           : <InfoBox creature={null}/>}
 				</Segment>
 			</div>
