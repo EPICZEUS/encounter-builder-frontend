@@ -3,8 +3,8 @@ import React, { Component, Fragment } from 'react';
 import './App.css';
 import { BrowserRouter as Router, Route, Link } from 'react-router-dom';
 import Encounter from './containers/Encounter';
-import { Card } from 'semantic-ui-react'
-import NewPlayer from './components/NewPlayer'
+import { Card } from 'semantic-ui-react';
+import NewPlayer from './components/NewPlayer';
 /* eslint-enable no-unused-vars */
 
 class App extends Component {
@@ -39,6 +39,12 @@ class App extends Component {
 		});
 	}
 
+	addToEncounter = combatant => {
+		const prop = combatant.player_class ? "players" : "creatures";
+
+		this.setState({ [prop]: [ ...this.state[prop], combatant ]});
+	}
+
 	render() {
 		return (
 			<Router>
@@ -47,7 +53,7 @@ class App extends Component {
 						<Link to="/">Encounter</Link>
 						<Link to="/create">Create Character</Link>
 					</nav>
-					<Route exact path="/" render={() => <Encounter players={this.state.players} creatures={this.state.creatures} />} />
+					<Route exact path="/" render={() => <Encounter players={this.state.players} creatures={this.state.creatures} addToEncounter={this.addToEncounter}/>} />
 					<Route path="/create" render={() => <NewPlayer />} />
 				</Fragment>
 			</Router>
