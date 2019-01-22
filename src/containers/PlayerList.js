@@ -6,21 +6,19 @@ import InfoBox from './InfoBox';
 /* eslint-enable no-unused-vars */
 
 export default class PlayerList extends Component {
-  state = {
-    players: [],
-    selected: null
-  }
+	state = {
+		players: [],
+		selected: null
+	}
 
-  componentDidMount() {
-    fetch('http://localhost:3000/api/v1/players')
-    .then(res => res.json())
-    .then(players => {
-      this.setState({ players })
-    })
-  }
+	componentDidMount() {
+		fetch('http://localhost:3000/api/v1/players')
+			.then(res => res.json())
+			.then(players => this.setState({ players }));
+	}
 
-	selectPlayer = (id) => {
-		this.setState({ selected: id })
+	selectPlayer = selected => {
+		this.setState({ selected });
 	}
 
 	render() {
@@ -38,9 +36,9 @@ export default class PlayerList extends Component {
 					</Card.Group>
 				</Segment>
 				<Segment>
-          {this.state.selected
-            ? <InfoBox creature={this.state.players.find(c => c.id === this.state.selected)} addToEncounter={this.props.addToEncounter} />
-          : <InfoBox creature={null}/>}
+					{this.state.selected
+						? <InfoBox creature={this.state.players.find(c => c.id === this.state.selected)} addToEncounter={this.props.addToEncounter} />
+						: <InfoBox creature={null}/>}
 				</Segment>
 			</div>
 		);

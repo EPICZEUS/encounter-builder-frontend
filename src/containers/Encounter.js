@@ -1,11 +1,12 @@
+/* eslint-disable no-unused-vars */
 import React, { Component } from 'react';
-import CreatureList from '../containers/CreatureList'
+import CreatureList from '../containers/CreatureList';
 import PlayerList from './PlayerList';
-import CurrentEncounter from '../containers/CurrentEncounter'
-import { Grid } from 'semantic-ui-react'
+import CurrentEncounter from '../containers/CurrentEncounter';
+import { Grid } from 'semantic-ui-react';
+/* eslint-enable no-unused-vars */
 
 export default class Encounter extends Component {
-
 	render() {
 		return (
 			<Grid celled>
@@ -24,7 +25,6 @@ export default class Encounter extends Component {
 					</Grid.Column>
 				</Grid.Row>
 			</Grid>
-
 		);
 	}
 }

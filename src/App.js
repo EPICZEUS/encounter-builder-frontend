@@ -3,8 +3,8 @@ import React, { Component, Fragment } from 'react';
 import './App.css';
 import { BrowserRouter as Router, Route, Link } from 'react-router-dom';
 import Encounter from './containers/Encounter';
-import { Card } from 'semantic-ui-react'
-import NewPlayer from './components/NewPlayer'
+import { Card } from 'semantic-ui-react';
+import NewPlayer from './components/NewPlayer';
 /* eslint-enable no-unused-vars */
 
 class App extends Component {
@@ -39,19 +39,10 @@ class App extends Component {
 		});
 	}
 
-	addToEncounter = (combatant) => {
-		console.log(combatant);
-		if (combatant.player_class) {
-			this.state.players.push(combatant)
-			this.setState({
-				players: this.state.players
-			})
-		} else {
-			this.state.creatures.push(combatant)
-			this.setState({
-				creatures: this.state.creatures
-			})
-		}
+	addToEncounter = combatant => {
+		const prop = combatant.player_class ? "players" : "creatures";
+
+		this.setState({ [prop]: [ ...this.state[prop], combatant ]});
 	}
 
 	render() {
