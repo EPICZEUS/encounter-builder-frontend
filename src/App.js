@@ -4,6 +4,7 @@ import './App.css';
 import { BrowserRouter as Router, Route, Link } from 'react-router-dom';
 import Encounter from './containers/Encounter';
 import { Card } from 'semantic-ui-react'
+import NewPlayer from './components/NewPlayer'
 /* eslint-enable no-unused-vars */
 
 class App extends Component {
@@ -47,7 +48,7 @@ class App extends Component {
 						<Link to="/create">Create Character</Link>
 					</nav>
 					<Route exact path="/" render={() => <Encounter players={this.state.players} creatures={this.state.creatures} />} />
-					<Route path="/create" render={() => <NewPlayer}
+					<Route path="/create" render={() => <NewPlayer />} />
 				</Fragment>
 			</Router>
 		);
