@@ -32,7 +32,7 @@ class CurrentEncounter extends React.Component {
         'Accept' : 'application/json'
       },
       body: JSON.stringify({
-        
+
       })
     })
   }
