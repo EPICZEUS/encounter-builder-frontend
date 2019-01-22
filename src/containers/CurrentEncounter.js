@@ -12,9 +12,7 @@ class CurrentEncounter extends React.Component {
 
 		this.state = {
 			name: '',
-			description: '',
-			player_ids: props.players.map(player => player.id),
-			creature_ids: props.creatures.map(creature => creature.id)
+			description: ''
 		};
 	}
 
@@ -27,13 +25,20 @@ class CurrentEncounter extends React.Component {
 	}
 
 	handleSubmit = () => {
+		const data = {
+			name: this.state.name,
+			description: this.state.description,
+			player_ids: this.props.players.map(player => player.id),
+			creature_ids: this.props.creatures.map(creature => creature.id)
+		};
+
 		fetch("http://localhost:3000/api/v1/encounters", {
 			method: "POST",
 			headers: {
 				"Content-Type": "application/json",
 				"Accept": "application/json"
 			},
-			body: JSON.stringify(this.state)
+			body: JSON.stringify(data)
 		});
 	}
 
