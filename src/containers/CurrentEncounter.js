@@ -10,24 +10,53 @@ class CurrentEncounter extends React.Component {
 
     this.state = {
       name: '',
-      description: ''
+      description: '',
+      players: props.players,
+      creatures: props.creatures
     }
+  }
+
+  handleChange = (event) => {
+    const target = event.target
+    const value = target.value
+    const name = target.name
+
+    this.setState({ [name]: value })
+  }
+
+  handleSubmit = () => {
+    fetch('http://localhost:3000/api/v1/encounters', {
+      method: 'POST',
+      headers: {
+        'Content-Type' : 'application/json',
+        'Accept' : 'application/json'
+      },
+      body: JSON.stringify({
+        
+      })
+    })
   }
 
   render () {
     return (
       <div>
         <Segment>
-          <Form>
+          <Form onSubmit={this.handleSubmit}>
             <Form.Input
               name='name'
               label='Name'
               placeholder='Name'
+              onChange={this.handleChange}
             />
           <Form.TextArea
               name='description'
               label='Description'
-              placeholder='Description of the enounter, enemies, loot, notes, etc...'/>
+              placeholder='Description of the enounter, enemies, loot, notes, etc...'
+              onChange={this.handleChange}
+            />
+          <Form.Group>
+            <Form.Button>Save</Form.Button>
+          </Form.Group>
           </Form>
         </Segment>
         <Segment>
