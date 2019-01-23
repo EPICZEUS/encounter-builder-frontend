@@ -3,7 +3,7 @@ import React from "react";
 import PropTypes from "prop-types";
 import Creature from "../components/Creature";
 import Player from "../components/Player";
-import { Segment, Form, Card, Grid, Header, Dropdown, Menu } from "semantic-ui-react";
+import { Segment, Form, Card, Grid, Header, Dropdown, Menu, Button } from "semantic-ui-react";
 /* eslint-disable no-unused-vars */
 
 class CurrentEncounter extends React.Component {
@@ -49,9 +49,24 @@ class CurrentEncounter extends React.Component {
 					"Accept": "application/json"
 				},
 				body: JSON.stringify(data)
-			});
-			window.location.href = '/';
+			})
+				.then(res => res.json())
+				.then(encounter => this.props.handleSave(encounter.id, encounter.name));
 		}
+	}
+
+	handleDelete = () => {
+		if (this.props.selected) {
+			fetch(`http://localhost:3000/api/v1/encounters/${this.props.selected}`, { method: "DELETE" })
+				.then(() => this.props.handleDeselect());
+		}
+	}
+
+	handleClear = () => {
+		this.setState({
+			name: '',
+			description: ''
+		}, () => this.props.handleDeselect());
 	}
 
 	render () {
@@ -59,13 +74,14 @@ class CurrentEncounter extends React.Component {
 		return (
 			<div>
 				<Segment>
-					<Menu vertical>
+					<Menu secondary>
 						<Dropdown item
 							text="Saved Encounters"
 							options={this.props.options}
 							value={this.props.selected}
-						 	onChange={(_, { value }) => this.props.handleEncounterSelect(value)}
+							onChange={(_, { value }) => this.props.handleEncounterSelect(value)}
 						/>
+					<Menu.Item name="new" onClick={this.handleClear} />
 					</Menu>
 				</Segment>
 				<Segment>
@@ -74,18 +90,20 @@ class CurrentEncounter extends React.Component {
 							name="name"
 							label="Name"
 							placeholder="Name"
-							value={this.props.selected ? selectedEncounter.name : ''}
+							value={this.props.selected ? selectedEncounter.name : this.state.name}
 							onChange={this.handleChange}
 						/>
 						<Form.TextArea
 							name="description"
 							label="Description"
 							placeholder="Description of the enounter, enemies, loot, notes, etc..."
-							value={this.props.selected ? selectedEncounter.description : ''}
+							value={this.props.selected ? selectedEncounter.description : this.state.description}
 							onChange={this.handleChange}
 						/>
 						<Form.Group>
 							<Form.Button>Save</Form.Button>
+							<Button secondary
+								onClick={this.handleDelete}>Delete</Button>
 						</Form.Group>
 					</Form>
 				</Segment>

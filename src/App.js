@@ -54,6 +54,23 @@ class App extends Component {
 		});
 	}
 
+	handleDeselect = () => {
+		this.setState({
+			selected: null,
+			addedPlayers: [],
+			addedCreatures: []
+		});
+	}
+
+	handleSave = (id, name) => {
+		const newOption = {
+			key: id,
+			value: id,
+			text: name
+		};
+		this.setState({ options: [ ...this.state.options, newOption ]}, () => this.handleDeselect());
+	}
+
 	handleChange = event => {
 		const filter = event.target.value;
 		this.setState({ filter });
@@ -77,6 +94,8 @@ class App extends Component {
 						addedPlayers={this.state.addedPlayers}
 						filter={this.state.filter}
 						handleChange={this.handleChange}
+						handleDeselect={this.handleDeselect}
+						handleSave={this.handleSave}
 						handleEncounterSelect={this.handleEncounterSelect}
 						addedCreatures={this.state.addedCreatures}
 						addToEncounter={this.addToEncounter} />}

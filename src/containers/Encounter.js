@@ -23,6 +23,8 @@ export default class Encounter extends Component {
 							encounters={this.props.encounters}
 							options={this.props.options}
 							selected={this.props.selected}
+							handleSave={this.props.handleSave}
+							handleDeselect={this.props.handleDeselect}
 							handleEncounterSelect={this.props.handleEncounterSelect}
 						/>
 					</Grid.Column>
