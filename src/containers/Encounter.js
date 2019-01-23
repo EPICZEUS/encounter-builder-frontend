@@ -21,11 +21,16 @@ export default class Encounter extends Component {
 							creatures={this.props.addedCreatures}
 							players={this.props.addedPlayers}
 							encounters={this.props.encounters}
+							options={this.props.options}
+							selected={this.props.selected}
+							handleEncounterSelect={this.props.handleEncounterSelect}
 						/>
 					</Grid.Column>
 					<Grid.Column width={3}>
 						<CreatureList
 							creatures={this.props.creatures}
+							filter={this.props.filter}
+							handleChange={this.props.handleChange}
 							addToEncounter={this.props.addToEncounter}/>
 					</Grid.Column>
 				</Grid.Row>

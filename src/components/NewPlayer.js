@@ -37,6 +37,7 @@ class NewPlayer extends React.Component {
 			},
 			body: JSON.stringify(this.state)
 		});
+		window.location.href = '/';
 	}
 
 	render () {

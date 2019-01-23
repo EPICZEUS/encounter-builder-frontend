@@ -15,7 +15,8 @@ class App extends Component {
 		addedPlayers: [],
 		addedCreatures: [],
 		options: [],
-		selected: null
+		selected: null,
+		filter: ''
 	}
 
 	async componentDidMount() {
@@ -31,7 +32,7 @@ class App extends Component {
 		}));
 
 		this.setState({
-			selected: encounters[0] ? encounters[0].id : null,
+			// selected: encounters[0] ? encounters[0].id : null,
 			encounters,
 			players,
 			creatures,
@@ -41,11 +42,25 @@ class App extends Component {
 
 	addToEncounter = combatant => {
 		const prop = combatant.player_class ? "addedPlayers" : "addedCreatures";
-
 		this.setState({ [prop]: [ ...this.state[prop], combatant ]});
 	}
 
+	handleEncounterSelect = id => {
+		const selectedEncounter = this.state.encounters.find(e => e.id === id);
+		this.setState({
+			selected: id,
+			addedPlayers: selectedEncounter.players,
+			addedCreatures: selectedEncounter.creatures
+		});
+	}
+
+	handleChange = event => {
+		const filter = event.target.value;
+		this.setState({ filter });
+	}
+
 	render() {
+		// find encounter
 		return (
 			<Router>
 				<Fragment>
@@ -53,7 +68,19 @@ class App extends Component {
 						<Link to="/">Encounter</Link>
 						<Link to="/create">Create Character</Link>
 					</nav>
-					<Route exact path="/" render={() => <Encounter players={this.state.players} creatures={this.state.creatures} encounters={this.state.options} addedPlayers={this.state.addedPlayers} addedCreatures={this.state.addedCreatures} addToEncounter={this.addToEncounter}/>} />
+					<Route exact path="/" render={() => <Encounter
+						players={this.state.players.filter(player => !this.state.addedPlayers.some(aPlay => aPlay.id === player.id))}
+						creatures={this.state.creatures.filter(c => c.name.toLowerCase().includes(this.state.filter))}
+						encounters={this.state.encounters}
+						options={this.state.options}
+						selected={this.state.selected}
+						addedPlayers={this.state.addedPlayers}
+						filter={this.state.filter}
+						handleChange={this.handleChange}
+						handleEncounterSelect={this.handleEncounterSelect}
+						addedCreatures={this.state.addedCreatures}
+						addToEncounter={this.addToEncounter} />}
+					/>
 					<Route path="/create" render={() => <NewPlayer />} />
 				</Fragment>
 			</Router>

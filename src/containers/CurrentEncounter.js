@@ -32,24 +32,39 @@ class CurrentEncounter extends React.Component {
 			creature_ids: this.props.creatures.map(creature => creature.id)
 		};
 
-		fetch("http://localhost:3000/api/v1/encounters", {
-			method: "POST",
-			headers: {
-				"Content-Type": "application/json",
-				"Accept": "application/json"
-			},
-			body: JSON.stringify(data)
-		});
+		if (this.props.selected) {
+			fetch(`http://localhost:3000/api/v1/encounters/${this.props.selected}`, {
+				method: "PATCH",
+				headers: {
+					"Content-Type": "application/json",
+					"Accept": "application/json"
+				},
+				body: JSON.stringify(data)
+			});
+		} else {
+			fetch("http://localhost:3000/api/v1/encounters", {
+				method: "POST",
+				headers: {
+					"Content-Type": "application/json",
+					"Accept": "application/json"
+				},
+				body: JSON.stringify(data)
+			});
+			window.location.href = '/';
+		}
 	}
 
 	render () {
+		const selectedEncounter = this.props.encounters.find(e => e.id === this.props.selected);
 		return (
 			<div>
 				<Segment>
 					<Menu vertical>
 						<Dropdown item
 							text="Saved Encounters"
-							options={this.props.encounters}
+							options={this.props.options}
+							value={this.props.selected}
+						 	onChange={(_, { value }) => this.props.handleEncounterSelect(value)}
 						/>
 					</Menu>
 				</Segment>
@@ -59,12 +74,14 @@ class CurrentEncounter extends React.Component {
 							name="name"
 							label="Name"
 							placeholder="Name"
+							value={this.props.selected ? selectedEncounter.name : ''}
 							onChange={this.handleChange}
 						/>
 						<Form.TextArea
 							name="description"
 							label="Description"
 							placeholder="Description of the enounter, enemies, loot, notes, etc..."
+							value={this.props.selected ? selectedEncounter.description : ''}
 							onChange={this.handleChange}
 						/>
 						<Form.Group>
